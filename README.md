@@ -1,4 +1,4 @@
-# curriculum-databases-projects-template
+# Vet Clinic Database
 
 > In this project there is an SQL query that uses a relational database to create the initial data structure for a vet clinic. It creates a table to store animals' information, insert some data into it, and query it.
 
