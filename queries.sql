@@ -76,3 +76,29 @@ SELECT neutered, SUM(escape_attempts) FROM animals GROUP BY neutered;
 SELECT neutered, MAX(weight_kg) as Max_weight, MIN(weight_kg) as Max_weight  FROM animals GROUP BY neutered;
 -- What is the average number of escape attempts per animal type of those born between 1990 and 2000?
 SELECT neutered, AVG(escape_attempts) as Average_escape_attempts FROM animals WHERE date_of_birth <= '2000-12-31' AND date_of_birth >= '1990-01-01' GROUP BY neutered;
+
+SELECT full_name AS owner, name AS animal FROM owners JOIN animals ON owners.id = animals.owner_id WHERE owners.full_name = 'Melody Pond';
+
+SELECT animals.name as animal, species.name as species FROM species S JOIN animals A ON S.id = A.species_id WHERE S.name = 'Pokemon';
+
+SELECT A.name as animal, S.name as species FROM species S JOIN animals A ON S.id = A.species_id WHERE S.name = 'Pokemon';
+
+SELECT O.full_name as Owner, A.name as Animals FROM owners O LEFT JOIN animals A ON O.id = A.owner_id;
+
+SELECT S.name as Species, COUNT(A.name) as Total_number FROM species S JOIN animals A ON S.id = A.species_id
+GROUP BY S.name;
+
+SELECT O.full_name as owner, A.name as animal, S.name as type 
+FROM owners O JOIN animals A ON O.id = A.owner_id
+JOIN species S ON S.id = A.species_id
+WHERE O.full_name = 'Jennifer Orwell' AND S.name = 'Digimon';
+
+SELECT O.full_name as owner, A.name as animal 
+FROM owners O JOIN animals A ON O.id = A.owner_id
+WHERE O.full_name = 'Dean Winchester' AND A.escape_attempts = 0;
+
+SELECT agg.full_name as owner, count as Total_number FROM
+(SELECT full_name, count(a.owner_id) FROM owners O
+JOIN animals A ON O.id = A.owner_id GROUP BY O.full_name) AS agg 
+WHERE count = (SELECT MAX(count) FROM (SELECT full_name, count(a.owner_id) FROM owners O
+JOIN animals A ON O.id = A.owner_id GROUP BY O.full_name) AS agg); 
