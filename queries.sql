@@ -78,3 +78,7 @@ SELECT neutered, MAX(weight_kg) as Max_weight, MIN(weight_kg) as Max_weight  FRO
 SELECT neutered, AVG(escape_attempts) as Average_escape_attempts FROM animals WHERE date_of_birth <= '2000-12-31' AND date_of_birth >= '1990-01-01' GROUP BY neutered;
 
 SELECT full_name AS owner, name AS animal FROM owners JOIN animals ON owners.id = animals.owner_id WHERE owners.full_name = 'Melody Pond';
+
+SELECT animals.name as animal, species.name as species FROM species S JOIN animals A ON S.id = A.species_id WHERE S.name = 'Pokemon';
+
+SELECT A.name as animal, S.name as species FROM species S JOIN animals A ON S.id = A.species_id WHERE S.name = 'Pokemon';
