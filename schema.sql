@@ -35,3 +35,13 @@ CREATE TABLE specializations (id INT GENERATED ALWAYS AS IDENTITY, species_id IN
 CREATE TABLE visits (id INT GENERATED ALWAYS AS IDENTITY, date_of_visit DATE, animal_id INT, vet_id INT, PRIMARY KEY (id), FOREIGN KEY (animal_id) REFERENCES animals (id), FOREIGN KEY (vet_id) REFERENCES vets (id));
 
 ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+-- create an Index on the visits table for the animal_id column
+CREATE INDEX IF NOT EXISTS idx_animal_id ON visits USING btree (animal_id ASC NULLS LAST) TABLESPACE pg_default;
+
+-- create an Index on the visits table for the vet_id column
+CREATE INDEX idx_vet_id ON visits (vet_id ASC NULLS LAST);
+
+
+-- create an Index on the owners table for the email column
+CREATE INDEX idx_email ON owners (email ASC NULLS LAST);
